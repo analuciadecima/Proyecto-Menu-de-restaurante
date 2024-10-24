@@ -8,3 +8,7 @@ app.get("/api", (req, res)=>{
 
 app.listen(3000)
 console.log("server online 3000")
+
+import Server from "./server"
+
+const server= new Server ()
