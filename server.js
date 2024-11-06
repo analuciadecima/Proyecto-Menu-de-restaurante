@@ -1,59 +1,55 @@
-
-import express from "express"
-import dotenv from "dotenv"
+import express from "express";
+import dotenv from "dotenv";
+import productRoutes from "./routes/productRoutes.js";
 import { dbConnection } from "./database/config.js";
-import menuRoutes from "./routes/menuRoutes.js"
 
-dotenv.config()
+dotenv.config();
 
-dbConnection()
-
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
-
-
-
-    class Server {
-        constructor(){
-            this.app=express()
-            this.port=process.env.PORT;
-    // this.usuarioPath="/api/usuarios"
-    // this.authPath="/api/auth";
-    // this.categoriaPath= "/api/categorias"
-    
-    this.dbConnection();
-    this.middlewares()
-    this.routes()
-        }
-        async dbConnection(){
-            await dbConnection ()
-        }
-
-
-
-        routes() {
-            this.app.use(this.usuarioPath, router);
-            this.app.use(this.authPath, routerAuth);
-            this.app.use(this.categoriaPath, routerCat);
-            this.app.use(this.productoPath, routerProd);
-          }
+class Server {
+    constructor() {
+        // Inicializa Express
+        this.app = express();
+        // Puerto de la aplicación
+        this.port = process.env.PORT;
+        // Ruta para productos
+        this.productPath = "/api/products";
         
-          middlewares() {
-            this.app.use(express.json());
-            this.app.use(express.static("public"));
-          }
+        // Conectar a la base de datos
+        this.dbConnection();
         
-          listen() {
-            this.app.listen(this.port, () =>
-              console.log("Server online, port:", this.port)
-            );
-          }
+        // Middlewares
+        this.middlewares();
+        
+        // Rutas de la aplicación
+        this.routes();
+    }
 
+    async dbConnection() {
+        await dbConnection();
+    }
+
+    middlewares() {
+        // Middleware para parsear JSON
+        this.app.use(express.json());
+        // Middleware para servir archivos estáticos (si tienes una carpeta public)
+        this.app.use(express.static("public"));
+    }
+
+    routes() {
+        // Rutas de productos
+        this.app.use(this.productPath, productRoutes);
+    }
+
+    listen() {
+        this.app.listen(this.port, () => {
+            console.log(`Servidor corriendo en el puerto ${this.port}`);
+        });
+    }
 }
 
+// Crea una instancia de la clase Server y llama a listen()
+const server = new Server();
+server.listen();
 
 
 export default Server
