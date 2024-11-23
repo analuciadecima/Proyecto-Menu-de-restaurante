@@ -1,6 +1,9 @@
 import Usuario from "../models/usuario.js"
+import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
 import {generarJWT} from "../helpers/genera-jwt.js"
+
+
 const login = async (req, res)=>{
     
 const {email, password} = req.body
@@ -31,10 +34,11 @@ try {
 
  //token
 
- const token = await generarJWT(usuario.id)
+ const token = await generarJWT(usuario.id);
 
-    res.tatus(202).json({
+    res.status(202).json({
         msg: "login ok",
+        token
     })    
 } catch (error) {
     res.status(500).json({

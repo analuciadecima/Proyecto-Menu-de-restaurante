@@ -13,7 +13,7 @@ const rolValido=async (rol)=>{
 const emailExiste=async(email)=>{
     const existeEmail = await Usuario.findOne({email})
 
-    if (emailExiste){
+    if (existeEmail){
         throw new Error(el `${email} ya existe`)
 
     }

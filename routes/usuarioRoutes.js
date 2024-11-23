@@ -2,12 +2,17 @@ import {Router} from "express"
 import {check} from "express-validator"
 import { getUsers, postUsers, putUsers, deleteUsers } from "../controllers/usuarioController.js"
 import { validarCampos } from "../middlewares/validar-campos.js"
-import { emailExiste, rolValido, existeUsuarioPorId } from "../helpers/db-validators.js"
 import { validarJWT } from "../middlewares/validar-jwt.js"
+import { esAdminRole } from "../middlewares/validar-roles.js"
+import { emailExiste, rolValido, existeUsuarioPorId } from "../helpers/db-validators.js"
+
 const router = Router()
 
 
-router.get("/", getUsers)
+router.get("/",[
+    validarJWT,
+    esAdminRole,
+], getUsers)
 
 router.post("/",[
     check ("nombre", "El nombre es obligatorio").notEmpty(),
@@ -26,7 +31,8 @@ validarCampos,
 ],putUsers)
 
 router.delete("/:id",
-    [validarJWTgit,
+    [validarJWT,
+        esAdminRole,
             check("id", "No es un id válido").isMongoId(),
 check("id").custom(existeUsuarioPorId),
 validarCampos   
