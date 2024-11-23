@@ -5,8 +5,10 @@ import bcrypt from "bcryptjs"
 
 
 
-const getUsers = (req=request, res=response)=>{
-    res.json({message: "peticion GET"})
+const getUsers = async (req=request, res=response)=>{
+    const usuarios=await Usuario.find({estado:true})
+    const total=await Usuario.countDocuments()
+    res.json({total, usuarios})
 }
 
 const postUsers = async (req, res)=>{

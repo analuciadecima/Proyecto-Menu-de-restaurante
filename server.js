@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import productRoutes from "./routes/productRoutes.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js"
+import routerAuth from "./routes/auth.js";
 import router from "./routes/productRoutes.js";
 import { dbConnection } from "./database/config.js";
 
@@ -15,6 +16,7 @@ class Server {
         this.port = process.env.PORT;
 
         this.usuarioPath="/api/usuarios"
+        this.authPath="/api/auth"
         // Ruta para productos
         this.productPath = "/api/products";
         
@@ -45,7 +47,7 @@ class Server {
         //revisar!!!
         this.app.use(this.usuarioPath, usuarioRoutes)
         ;
-        
+        this.app.use(this.authPath, routerAuth)
     }
 
     listen() {

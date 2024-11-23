@@ -3,6 +3,7 @@ import {check} from "express-validator"
 import { getUsers, postUsers, putUsers, deleteUsers } from "../controllers/usuarioController.js"
 import { validarCampos } from "../middlewares/validar-campos.js"
 import { emailExiste, rolValido, existeUsuarioPorId } from "../helpers/db-validators.js"
+import { validarJWT } from "../middlewares/validar-jwt.js"
 const router = Router()
 
 
@@ -24,10 +25,11 @@ check("rol").custom(rolValido),
 validarCampos,
 ],putUsers)
 
-router.delete("/:id",[
-    check("id", "No es un id válido").isMongoId(),
+router.delete("/:id",
+    [validarJWTgit,
+            check("id", "No es un id válido").isMongoId(),
 check("id").custom(existeUsuarioPorId),
-validarCampos    
+validarCampos   
 ], deleteUsers)
 
 
