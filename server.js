@@ -10,25 +10,23 @@ dotenv.config();
 
 class Server {
     constructor() {
-        // Inicializa Express
+      
         this.app = express();
-        // Puerto de la aplicación
-        this.port = process.env.PORT ? Number(process.env.PORT) : 3201;
-
+        
+        this.port = process.env.PORT;
 
         this.usuarioPath="/api/usuarios"
         this.authPath="/api/auth"
-        // Ruta para productos
+       
         this.productPath = "/api/products";
         
-        // Conectar a la base de datos
+      
         this.dbConnection();
         
-        // Middlewares
+
         this.middlewares();
         
-        // Rutas de la aplicación
-        this.routes();
+       this.routes();
     }
 
     async dbConnection() {
@@ -36,15 +34,15 @@ class Server {
     }
 
     middlewares() {
-        // Middleware para parsear JSON
+       
         this.app.use(express.json());
        
     }
 
     routes() {
-        // Rutas de productos
+        
         this.app.use(this.productPath, productRoutes)
-        //revisar!!!
+      
         this.app.use(this.usuarioPath, usuarioRoutes)
         ;
         this.app.use(this.authPath, routerAuth)
