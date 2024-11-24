@@ -13,7 +13,7 @@ class Server {
         // Inicializa Express
         this.app = express();
         // Puerto de la aplicación
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 3201;
 
         this.usuarioPath="/api/usuarios"
         this.authPath="/api/auth"
@@ -37,8 +37,7 @@ class Server {
     middlewares() {
         // Middleware para parsear JSON
         this.app.use(express.json());
-        // Middleware para servir archivos estáticos (si tienes una carpeta public)
-        // this.app.use(express.static("public"));
+       
     }
 
     routes() {
@@ -57,7 +56,7 @@ class Server {
     }
 }
 
-// Crea una instancia de la clase Server y llama a listen()
+
 const server = new Server();
 server.listen();
 
