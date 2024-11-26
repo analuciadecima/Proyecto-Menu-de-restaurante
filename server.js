@@ -13,7 +13,7 @@ class Server {
     constructor() {
       
         this.app = express();
-        this.port = process.env.PORT || 3201;
+        this.port = process.env.PORT;
         this.usuarioPath="/api/usuarios"
         this.authPath="/api/auth"
        this.categoriaPath="/api/categorias"
