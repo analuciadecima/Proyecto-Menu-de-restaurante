@@ -7,7 +7,7 @@ const UsuarioSchema = new Schema({
     password: {type: String, required:[true, "La contraseña es obligatoria"]},
     img: {
         type:String,
-        defaut:"https://media.istockphoto.com/id/1337144146/es/vector/vector-de-icono-de-perfil-de-avatar-predeterminado.jpg?s=612x612&w=0&k=20&c=YiNB64vwYQnKqp-bWd5mB_9QARD3tSpIosg-3kuQ_CI="
+        default:"https://media.istockphoto.com/id/1337144146/es/vector/vector-de-icono-de-perfil-de-avatar-predeterminado.jpg?s=612x612&w=0&k=20&c=YiNB64vwYQnKqp-bWd5mB_9QARD3tSpIosg-3kuQ_CI="
     },
     rol:{
         type:String,
@@ -16,9 +16,14 @@ const UsuarioSchema = new Schema({
     },
     estado:{
         type:Boolean,
-        defaut:true,
+        default:true,
     },
 
 });
+
+UsuarioSchema.methods.toJSON = function(){
+    const {password, ...usuario} = this.toObject();
+    return usuario;
+}
 
 export default model("Usuario", UsuarioSchema);
