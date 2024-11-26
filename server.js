@@ -1,10 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
-import productRoutes from "./routes/productRoutes.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js"
 import routerAuth from "./routes/auth.js";
-import router from "./routes/productRoutes.js";
+import routerCat from "./routes/categoriaRoutes.js";
+import routerProd from "./routes/productosRoutes.js";
 import { dbConnection } from "./database/config.js";
+
 
 dotenv.config();
 
@@ -12,21 +13,17 @@ class Server {
     constructor() {
       
         this.app = express();
-        
         this.port = process.env.PORT;
-
         this.usuarioPath="/api/usuarios"
         this.authPath="/api/auth"
-       
-        this.productPath = "/api/products";
-        
+       this.categoriaPath="/api/categorias"
+        this.productoPath = "/api/productos";
       
         this.dbConnection();
         
-
         this.middlewares();
         
-       this.routes();
+        this.routes();
     }
 
     async dbConnection() {
@@ -40,12 +37,15 @@ class Server {
     }
 
     routes() {
-        
-        this.app.use(this.productPath, productRoutes)
+    
       
         this.app.use(this.usuarioPath, usuarioRoutes)
         ;
         this.app.use(this.authPath, routerAuth)
+
+        this.app.use(this.categoriaPath, routerCat);
+
+        this.app.use(this.productoPath, routerProd)
     }
 
     listen() {

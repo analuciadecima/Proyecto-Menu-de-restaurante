@@ -1,6 +1,7 @@
 
 import Role from "../models/rol.js"
 import Usuario from "../models/usuario.js"
+import Producto from "../models/producto.js"
 
 const rolValido=async (rol)=>{
     const esRolValido = await Role.findOne({rol})
@@ -31,6 +32,13 @@ if (!existeUsuario.estado){
 }
 
 
+const productoExiste=async(id)=>{
+    const existeProducto=await Producto.findById(id);
+    if(!existeProducto){
+        throw new Error (`El id ${id} no existe en la base de datos`)
+    }
+}
 
 
-export {rolValido, emailExiste, existeUsuarioPorId}
+
+export {rolValido, emailExiste, existeUsuarioPorId, productoExiste}
