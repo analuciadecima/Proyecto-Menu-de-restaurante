@@ -3,7 +3,20 @@ import Usuario from "../models/usuario.js"
 import bcrypt from "bcryptjs"
 // import {validationResult} from "express-validator"
 
+const getAdmins = async (req, res)=>{
+    try {
+        const admins=await Usuario.find({rol:"ADMIN_ROLE", estado:true});
+        const totalAdmins= await Usuario.countDocuments({rol: "ADMIN_ROLE", estado: true});
 
+        res.status(200).json({total:totalAdmins, admins});
+        
+    }
+    catch (error) {
+        res.status(500).json({
+            msg: "Error al obtener usuarios administradores"
+        })
+    }
+}
 
 const getUsers = async (req=request, res=response)=>{
     const usuarios=await Usuario.find({estado:true})
@@ -17,24 +30,12 @@ const postUsers = async (req, res)=>{
 
     const {nombre, email, password, rol}= datos
 
-    // const errors=validationResult(req);
-    // if (!errors.isEmpty()){
-    //     return res.status(400).json(errors)
-    // }
 
     const usuario = new Usuario({nombre, email, password, rol})
 
-    //verificar mail
-    // const existeEmail = await Usuario.findOne({email})
-
-    // if (existeEmail){
-    //     return res.status(400).json({msg: "El correo ya existe"})
-
-    // }
-
+    
 const salt = bcrypt.genSaltSync()
 usuario.password = bcrypt.hashSync(password, salt)
-
 
 
 await usuario.save()
@@ -75,4 +76,4 @@ const deleteUsers = async (req, res)=>{
 
 
 
-export{getUsers, postUsers, putUsers, deleteUsers}
+export{getAdmins,getUsers, postUsers, putUsers, deleteUsers}
