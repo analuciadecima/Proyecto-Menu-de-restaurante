@@ -4,16 +4,22 @@ import { validarCampos } from "../middlewares/validar-campos.js"
 import { validarJWT } from "../middlewares/validar-jwt.js"
 import { esAdminRole } from "../middlewares/validar-roles.js"
 import { emailExiste, rolValido, existeUsuarioPorId } from "../helpers/db-validators.js"
-import { getUsers, postUsers, putUsers, deleteUsers } from "../controllers/usuarioController.js"
+import { getUsers, postUsers, putUsers, deleteUsers, getAdmins } from "../controllers/usuarioController.js"
 
 
 const router = Router()
-
 
 router.get("/",[
     validarJWT,
     esAdminRole,
 ], getUsers)
+
+router.get("/admins",[
+    validarJWT,
+    esAdminRole,
+], getAdmins)
+
+
 
 router.post("/",[
     check ("nombre", "El nombre es obligatorio").notEmpty(),
