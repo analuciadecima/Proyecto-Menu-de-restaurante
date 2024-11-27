@@ -5,7 +5,7 @@ import usuarioRoutes from "./routes/usuarioRoutes.js"
 import routerAuth from "./routes/auth.js";
 import routerCat from "./routes/categoriaRoutes.js";
 import routerProd from "./routes/productosRoutes.js";
-import { dbConnection } from "./database/config.js";
+import {dbConnection} from "./database/config.js";
 
 
 dotenv.config();
