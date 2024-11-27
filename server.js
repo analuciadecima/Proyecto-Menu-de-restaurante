@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"
 import dotenv from "dotenv";
 import usuarioRoutes from "./routes/usuarioRoutes.js"
 import routerAuth from "./routes/auth.js";
@@ -31,7 +32,7 @@ class Server {
     }
 
     middlewares() {
-       
+        this.app.use(cors());
         this.app.use(express.json());
        
     }
