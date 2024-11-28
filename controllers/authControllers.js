@@ -38,6 +38,7 @@ try {
 
     res.status(202).json({
         msg: "login ok",
+        uid:usuario.id,
         token
     })    
 } catch (error) {
