@@ -12,7 +12,9 @@ if (!token){
 
 
 try {
-    const {uid} = jwt.verify(token, process.env.PRIVATESECRETKEY);
+    const { uid }  = jwt.verify(token, process.env.PRIVATESECRETKEY);
+    req.uid=uid
+
     const usuario = await Usuario.findById(uid);
 
     if(!usuario){
