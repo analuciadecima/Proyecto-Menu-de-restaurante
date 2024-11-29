@@ -7,6 +7,7 @@ import routerCat from "./routes/categoriaRoutes.js";
 import routerProd from "./routes/productosRoutes.js";
 import {dbConnection} from "./database/config.js";
 import routerBuscar from "./routes/buscar.js";
+import routerPedidos from "./routes/pedidos.js";
 
 
 dotenv.config();
@@ -20,6 +21,7 @@ class Server {
         this.authPath="/api/auth"
        this.categoriaPath="/api/categorias"
         this.productoPath = "/api/productos";
+        this.pedidosPath="/api/pedidos"
         this.buscarPath="/api/buscar"
       
         this.dbConnection();
@@ -49,6 +51,8 @@ class Server {
         this.app.use(this.categoriaPath, routerCat);
 
         this.app.use(this.productoPath, routerProd)
+
+        this.app.use(this.pedidosPath, routerPedidos)
 
         this.app.use(this.buscarPath, routerBuscar)
     }

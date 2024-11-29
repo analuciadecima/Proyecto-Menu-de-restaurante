@@ -34,11 +34,11 @@ try {
 
  //token
 
- const token = await generarJWT(usuario.id);
+ const token = await generarJWT(usuario._id);
 
     res.status(202).json({
         msg: "login ok",
-        uid:usuario.id,
+        uid:usuario._id,
         token
     })    
 } catch (error) {
