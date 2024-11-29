@@ -55,6 +55,7 @@ res.json({
     
     const buscar=async(req, res)=>{
 const {coleccion, termino}=req.params
+console.log ("ruta detectada:" , req.params)
 
 if(!coleccionesAdmitidas.includes(coleccion)){
     return res.status(400).json ({
