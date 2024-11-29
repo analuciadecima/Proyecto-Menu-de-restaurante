@@ -9,7 +9,7 @@ import routerBuscar from "../routes/buscar.js";
 
 const coleccionesAdmitidas=["categorias", "productos"]
 
-const buscarCategoria=async(termino, res)=>{
+const buscarCategoria=async(termino, res=response)=>{
     const isMongoId=ObjectId.idValid(termino)
 
     if (isMongoId){
@@ -18,15 +18,50 @@ const buscarCategoria=async(termino, res)=>{
             results: categoria ? [categoria] : [],
         })
     }
+
+const regex= new RegExp (termino, "i")
+
+const categorias = await Categoria.find({
+nombre:regex, 
+estado:true}).populate("usuario", "nombre");
+res.json({
+    results: categorias,
+})
+
 }
 
-const buscar=async(req, res)=>{
+const buscarProducto=async(termino, res=response)=> {
+    const isMongoId=ObjectId.idValid(termino)
+
+    if (isMongoId){
+        const producto=await Producto.findById(termino).populate("usuario", "nombre").populate("categoria", "nombre");
+
+        return res.json({
+            results: producto ? [producto] : [],
+        })
+    }
+
+
+    const regex= new RegExp (termino, "i")
+
+const productos = await Producto.find({
+nombre:regex, 
+estado:true}).populate("usuario", "nombre").populate("categoria", "nombre");
+res.json({
+    results: productos,
+})
+
+}
+
+
+    const buscar=async(req, res)=>{
 const {coleccion, termino}=req.params
 
 if(!coleccionesAdmitidas.includes(coleccion)){
     return res.status(400).json ({
-        msg: "Las colecciones permitidas son `${coleccionesPermitidaas}`"
-    })
+        msg: "Las colecciones permitidas son `${coleccionesAdmitidas}`"
+    });
+}
 
 switch (coleccion){
 case "categorias":
@@ -41,12 +76,13 @@ break;
 default:
     res.status(500).json({
         msg: "No se generaron las busquedas"
-    })
+    });
+    break
 
 }
 
 
 }
-}
+
 
 export default buscar
