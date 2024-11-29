@@ -10,7 +10,7 @@ import routerBuscar from "../routes/buscar.js";
 const coleccionesAdmitidas=["categorias", "productos"]
 
 const buscarCategoria=async(termino, res=response)=>{
-    const isMongoId=ObjectId.idValid(termino)
+    const isMongoId=ObjectId.isValid(termino)
 
     if (isMongoId){
         const categoria=await Categoria.findById(termino).populate("usuario", "nombre")
@@ -31,7 +31,7 @@ res.json({
 }
 
 const buscarProducto=async(termino, res=response)=> {
-    const isMongoId=ObjectId.idValid(termino)
+    const isMongoId=ObjectId.isValid(termino)
 
     if (isMongoId){
         const producto=await Producto.findById(termino).populate("usuario", "nombre").populate("categoria", "nombre");
@@ -48,12 +48,12 @@ const productos = await Producto.find({
 nombre:regex, 
 estado:true}).populate("usuario", "nombre").populate("categoria", "nombre");
 res.json({
-    results: productos,
+    results: productos, 
 })
 
 }
 
-
+    
     const buscar=async(req, res)=>{
 const {coleccion, termino}=req.params
 
