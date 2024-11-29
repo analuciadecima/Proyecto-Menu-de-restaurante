@@ -1,5 +1,5 @@
 import Usuario from "../models/usuario.js"
-import jwt from "jsonwebtoken"
+
 import bcrypt from "bcryptjs"
 import {generarJWT} from "../helpers/genera-jwt.js"
 
