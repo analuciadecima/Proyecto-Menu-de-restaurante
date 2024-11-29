@@ -5,7 +5,6 @@ const {ObjectId}=mongoose.Types
 
 import Categoria from "../models/categoria.js"
 import Producto from "../models/producto.js"
-import routerBuscar from "../routes/buscar.js";
 
 const coleccionesAdmitidas=["categorias", "productos"]
 
