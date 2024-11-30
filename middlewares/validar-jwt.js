@@ -4,7 +4,7 @@ import jwt from
 "jsonwebtoken"
 import Usuario from "../models/usuario.js"
 
-const validarJWT=async(req=re,res,next)=>{
+const validarJWT=async(req,res,next)=>{
 const token = req.header("x-token")
 
 if (!token){
@@ -15,7 +15,7 @@ if (!token){
 
 
 try {
-    const { uid }  = jwt.verify(token, process.env.PRIVATESECRETKEY);
+    const {uid}  = jwt.verify(token, process.env.PRIVATESECRETKEY);
 console.log("UID del token", uid)
     const usuario = await Usuario.findById(uid);
 
