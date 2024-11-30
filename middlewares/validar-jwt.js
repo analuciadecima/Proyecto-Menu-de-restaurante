@@ -16,7 +16,8 @@ if (!token){
 
 try {
     const {uid}  = jwt.verify(token, process.env.PRIVATESECRETKEY);
-console.log("UID del token", uid)
+console.log("UID del token", uid);
+req.uid=uid;
     const usuario = await Usuario.findById(uid);
 
     if(!usuario){

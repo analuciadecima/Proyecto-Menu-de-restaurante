@@ -32,11 +32,10 @@ try {
         })
     }
 
- //token
 
  const token = await generarJWT(usuario._id);
 
-    res.status(202).json({
+    res.status(200).json({
         msg: "login ok",
         uid:usuario._id,
         token
