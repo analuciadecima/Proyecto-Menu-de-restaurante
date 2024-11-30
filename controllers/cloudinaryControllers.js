@@ -7,7 +7,7 @@ export const subirImagen = async (req, res) => {
     const resultado = await cloudinary.uploader.upload(archivo.Path, {
       folder: "productos", 
     });
-
+   
     fs.unlinkSync(archivo.path);
 
     res.json({ url: resultado.secure_url });
