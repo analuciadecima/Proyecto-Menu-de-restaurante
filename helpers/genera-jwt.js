@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
 
 const generarJWT=(uid)=>{
+    console.log("UID recibido en generarJWT:", uid)
 
     return new Promise ((resolve, reject)=>{
 const payload={uid}
@@ -19,3 +20,5 @@ jwt.sign(payload, process.env.PRIVATESECRETKEY, {expiresIn:"4h"}, (err, token)=>
 }
 
 export {generarJWT}
+
+
