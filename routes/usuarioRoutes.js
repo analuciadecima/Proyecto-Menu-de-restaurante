@@ -14,8 +14,16 @@ router.get("/",[
     esAdminRole,
 ], getUsers)
 
-router.get("/:id", [validarJWT, esAdminRole], getUser); // Para obtener un usuario específico
-
+router.get(
+    "/:id",
+    [
+      validarJWT,
+      check("id", "No es un id válido").isMongoId(),
+      check("id").custom(existeUsuarioPorId),
+      validarCampos,
+    ],
+    getUser
+  );
 
 router.get("/admins",[
     validarJWT,
