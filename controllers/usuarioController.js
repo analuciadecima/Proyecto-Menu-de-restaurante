@@ -24,6 +24,21 @@ const getUsers = async (req=request, res=response)=>{
     const total=await Usuario.countDocuments()
     res.json({total, usuarios})
 }
+const getUser = async (req, res) => {
+    const { id } = req.params;
+  
+    const usuario = await Usuario.findById(id);
+
+    if (!usuario){
+        return res.status(404).json({ msg: "No se encontró el usuario"})
+    }
+  
+    res.json({
+      usuario,
+    });
+
+  };
+
 
 const postUsers = async (req, res)=>{
 
@@ -77,4 +92,4 @@ const deleteUsers = async (req, res)=>{
 
 
 
-export{getAdmins,getUsers, postUsers, putUsers, deleteUsers}
+export{getAdmins,getUsers, getUser,  postUsers, putUsers, deleteUsers}

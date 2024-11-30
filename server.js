@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors"
 import dotenv from "dotenv";
+import cloudinary from "./config/cloudinary.js";
+import subirImgRouter from "./routes/subirImgRoutes.js"
 import usuarioRoutes from "./routes/usuarioRoutes.js"
 import routerAuth from "./routes/auth.js";
 import routerCat from "./routes/categoriaRoutes.js";
@@ -19,6 +21,7 @@ class Server {
         this.port = process.env.PORT;
         this.usuarioPath="/api/usuarios"
         this.authPath="/api/auth"
+        this.subirImgPath="/api/imagenes"
        this.categoriaPath="/api/categorias"
         this.productoPath = "/api/productos";
         this.pedidosPath="/api/pedidos"
@@ -29,6 +32,8 @@ class Server {
         this.middlewares();
         
         this.routes();
+
+        console.log(`Cloudinary configurado: ${cloudinary.config().cloud_name}`);
     }
 
     async dbConnection() {
@@ -48,6 +53,8 @@ class Server {
         ;
         this.app.use(this.authPath, routerAuth)
 
+        this.app.use(this.subirImgPath, subirImgRouter)
+
         this.app.use(this.categoriaPath, routerCat);
 
         this.app.use(this.productoPath, routerProd)
@@ -55,6 +62,8 @@ class Server {
         this.app.use(this.pedidosPath, routerPedidos)
 
         this.app.use(this.buscarPath, routerBuscar)
+
+
     }
 
     listen() {
