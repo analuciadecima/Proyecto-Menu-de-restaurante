@@ -4,7 +4,7 @@ import { validarCampos } from "../middlewares/validar-campos.js"
 import { validarJWT } from "../middlewares/validar-jwt.js"
 import { esAdminRole } from "../middlewares/validar-roles.js"
 import { emailExiste, rolValido, existeUsuarioPorId } from "../helpers/db-validators.js"
-import { getUsers, postUsers, putUsers, deleteUsers, getAdmins } from "../controllers/usuarioController.js"
+import { getUsers, postUsers, putUsers, deleteUsers, getAdmins, getUser } from "../controllers/usuarioController.js"
 
 
 const router = Router()
@@ -13,6 +13,9 @@ router.get("/",[
     validarJWT,
     esAdminRole,
 ], getUsers)
+
+router.get("/:id", [validarJWT, esAdminRole], getUser); // Para obtener un usuario específico
+
 
 router.get("/admins",[
     validarJWT,
