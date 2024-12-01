@@ -7,7 +7,7 @@ import { actualizarCategoria, agregarCategoria, borrarCategoria, traerCategorias
 
 const routerCat = Router()
 
-routerCat.get("/",[validarJWT],traerCategorias);
+routerCat.get("/",traerCategorias);
 
 routerCat.post("/",[
     validarJWT, esAdminRole, check("nombre", "EL nombre es obligatorio").notEmpty(),
