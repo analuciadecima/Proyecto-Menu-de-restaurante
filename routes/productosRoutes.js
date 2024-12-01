@@ -15,9 +15,9 @@ import {
 
 const routerProd = Router();
 
-routerProd.get("/", obtenerProducto);
+routerProd.get("/", obtenerProductos);
 
-//Listar producto por id
+
 routerProd.get(
   "/:id",
   [
@@ -25,7 +25,7 @@ routerProd.get(
     check("id").custom(productoExiste),
     validarCampos,
   ],
-  obtenerProductos
+  obtenerProducto
 );
 
 //Agregar producto a la BD
