@@ -19,8 +19,7 @@ const getAdmins = async (req, res)=>{
 }
 
 const getUsers = async (req=request, res=response)=>{
-    const {limite=5, desde=0}=req.query;
-    const usuarios=await Usuario.find().limit(limite).skip(desde);
+    const usuarios=await Usuario.find();
     const total=await Usuario.countDocuments()
     res.json({total, usuarios})
 }
@@ -87,7 +86,7 @@ const deleteUsers = async (req, res)=>{
     const usuarioInactivo = await Usuario.findByIdAndUpdate(id, {estado:false}, {new:true})
 
 
-    res.json({message: "usuario eliminado"})
+    res.json({message: "usuario inactivo", usuarioInactivo})
 }
 
 

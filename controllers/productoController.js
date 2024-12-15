@@ -3,12 +3,8 @@ import Producto from "../models/producto.js";
 
 
 const obtenerProductos = async (req = request, res = response) => {
-  const { limite = 5, desde = 0 } = req.query;
   const query = { estado: true };
-
   const productos = await Producto.find(query)
-    .skip(Number(desde))
-    .limit(Number(limite))
     .populate("categoria", "nombre")
     .populate("usuario", "email");
 
@@ -23,7 +19,6 @@ const obtenerProductos = async (req = request, res = response) => {
 
 const obtenerProducto = async (req = request, res = response) => {
   const { id } = req.params;
-
   const producto = await Producto.findById(id)
     .populate("categoria", "nombre")
     .populate("usuario", "email");
